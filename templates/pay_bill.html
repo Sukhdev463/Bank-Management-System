@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Bill - Banking App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 600;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: #3498db;
+            border-radius: 3px;
+        }
+
+        .bill-icon {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #9b59b6;
+            font-size: 60px;
+            animation: bounceIn 1s ease;
+        }
+
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        select:focus,
+        input[type="number"]:focus {
+            border-color: #9b59b6;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.2);
+            background-color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .link a {
+            color: #9b59b6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .link a:hover {
+            color: #8e44ad;
+        }
+
+        .link a i {
+            transition: transform 0.3s ease;
+        }
+
+        .link a:hover i {
+            transform: translateX(-3px);
+        }
+
+        .message {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: rgba(46, 204, 113, 0.2);
+            border-left: 4px solid #2ecc71;
+            color: #27ae60;
+            font-weight: 500;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes bounceIn {
+            0%, 20%, 40%, 60%, 80%, 100% {transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); }
+            0% {opacity: 0; transform: scale3d(.3, .3, .3); }
+            20% {transform: scale3d(1.1, 1.1, 1.1); }
+            40% {transform: scale3d(.9, .9, .9); }
+            60% {opacity: 1; transform: scale3d(1.03, 1.03, 1.03); }
+            80% {transform: scale3d(.97, .97, .97); }
+            100% {opacity: 1; transform: scale3d(1, 1, 1); }
+        }
+
+        .form-group {
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .error-message {
+        background-color: rgba(231, 76, 60, 0.2);
+        border-left: 4px solid #e74c3c;
+        color: #c0392b;
+        }
+    
+        .success-message {
+        background-color: rgba(46, 204, 113, 0.2);
+        border-left: 4px solid #2ecc71;
+        color: #27ae60;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container animate__animated animate__fadeIn">
+        <div class="form-container">
+            <div class="bill-icon">
+                <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <h1>Pay Bill</h1>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="message {% if category == 'error' %}error-message{% else %}success-message{% endif %}">
+                        <i class="fas fa-{% if category == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i> 
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+            <form method="POST">
+                <div class="form-group animate__animated animate__fadeInUp">
+                    <select name="bill_type" id="bill_type">
+                        {% for bill in bill_types %}
+                            <option value="{{ bill }}">{{ bill }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group animate__animated animate__fadeInUp animate__delay-1s">
+                    <input type="number" name="amount" id="amount" placeholder="Amount" min="1" required>
+                </div>
+                
+                <button type="submit" class="animate__animated animate__fadeInUp animate__delay-2s">
+                    <i class="fas fa-money-check-alt"></i>
+                    Pay Bill
+                </button>
+            </form>
+            
+            <div class="link animate__animated animate__fadeInUp animate__delay-3s">
+                <a href="{{ url_for('dashboard') }}">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
